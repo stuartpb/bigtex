@@ -12,6 +12,12 @@ height: 100%;
 width: 100%;
 text-align: center;
 }
+.inverted {
+  background-color: #000;
+}
+.inverted main {
+  text-shadow: 0 0 0 #fff;
+}
 body::before {
 content: '';
 display: inline-block;
@@ -24,8 +30,27 @@ vertical-align: middle;
 width: 100%;
 font: 7em sans-serif;
 outline: none;
+text-shadow: 0 0 0 #000;
+color: rgba(0,0,0,0);
+}
+main:empty {
+text-shadow: none;
+color: #000;
 }
 </style></head>
 <body><main contenteditable="true"></main><script>
-function f(){document.body.firstChild.focus()} document.body.onclick=f; f();
+function f(){document.body.firstChild.focus()}
+document.body.addEventListener('click',f); f();
+function flashOn(evt) {
+  var focusPosition = getSelection().focusOffset;
+  var nodeLength = getSelection().focusNode.length;
+  if (((evt.keyCode == 37 || evt.keyCode == 38) && focusPosition == 0) ||
+    ((evt.keyCode == 39 || evt.keyCode == 40) && focusPosition == nodeLength))
+  document.body.classList.add('inverted');
+}
+document.body.addEventListener('keydown',flashOn);
+function flashOff(evt) {
+  document.body.classList.remove('inverted');
+}
+document.body.addEventListener('keyup',flashOff);
 </script></body></html>
