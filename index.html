@@ -28,6 +28,10 @@ main {
   width: 100%;
   font: 7em sans-serif;
   outline: none;
+
+  /* fix phantom extra width at the end of a wrapped line
+     when contenteditable in Chrome */
+  -webkit-line-break: auto;
 }
 </style></head>
 <body><main id="main" contenteditable="true"></main><script>
