@@ -51,7 +51,7 @@ function flashOn(evt) {
   if (((evt.keyCode == 37 || evt.keyCode == 38)
       && focusPosition == 0) ||
     ((evt.keyCode == 39 || evt.keyCode == 40)
-      && focusPosition == nodeLength)) {
+      && (focusPosition == nodeLength || !nodeLength))) {
     unsetEditable();
     document.body.classList.add('inverted');
   } else setEditable();
