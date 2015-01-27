@@ -7,51 +7,55 @@
 <link rel="repo" href="https://github.com/stuartpb/bigtex">
 <style>
 html, body {
-margin: 0;
-height: 100%;
-width: 100%;
-text-align: center;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }
 .inverted {
   background-color: #000;
-}
-.inverted main {
-  text-shadow: 0 0 0 #fff;
+  color: #fff;
 }
 body::before {
-content: '';
-display: inline-block;
-height: 100%;
-vertical-align: middle;
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 main {
-display: inline-block;
-vertical-align: middle;
-width: 100%;
-font: 7em sans-serif;
-outline: none;
-text-shadow: 0 0 0 #000;
-color: rgba(0,0,0,0);
-}
-main:empty {
-text-shadow: none;
-color: #000;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  font: 7em sans-serif;
+  outline: none;
 }
 </style></head>
-<body><main contenteditable="true"></main><script>
+<body><main id="main" contenteditable="true"></main><script>
 /* global getSelection */
-function f(){document.body.firstChild.focus();}
-document.body.addEventListener('click',f); f();
+var mainEl = document.getElementById('main');
+function setEditable() {
+  mainEl.contentEditable = true;
+  document.body.firstChild.focus();
+}
+function unsetEditable() {
+  if (mainEl.textContent.length) mainEl.contentEditable = false;
+}
+document.body.addEventListener('click',setEditable); setEditable();
 function flashOn(evt) {
   var focusPosition = getSelection().focusOffset;
   var nodeLength = getSelection().focusNode.length;
-  if (((evt.keyCode == 37 || evt.keyCode == 38) && focusPosition == 0) ||
-    ((evt.keyCode == 39 || evt.keyCode == 40) && focusPosition == nodeLength))
-  document.body.classList.add('inverted');
+  if (((evt.keyCode == 37 || evt.keyCode == 38)
+      && focusPosition == 0) ||
+    ((evt.keyCode == 39 || evt.keyCode == 40)
+      && focusPosition == nodeLength)) {
+    unsetEditable();
+    document.body.classList.add('inverted');
+  } else setEditable();
 }
 document.body.addEventListener('keydown',flashOn);
 function flashOff(evt) {
   document.body.classList.remove('inverted');
+  unsetEditable();
 }
 document.body.addEventListener('keyup',flashOff);
 </script></body></html>
