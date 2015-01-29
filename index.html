@@ -16,6 +16,12 @@ html, body {
   background-color: #000;
   color: #fff;
 }
+::selection {
+  background-color: #000;
+  /* HACK: http://stackoverflow.com/a/7224621/458274 */
+  background-color: rgba(0,0,0,0.99);
+  color: #fff;
+}
 body::before {
   content: '';
   display: inline-block;
