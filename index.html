@@ -40,7 +40,9 @@ main {
   -webkit-line-break: auto;
 }
 </style></head>
-<body><main id="main" contenteditable="true"></main><script>
+<body><main id="main" contenteditable="true"></main>
+<script src="/polyfills/keyboard.js"></script>
+<script>
 /* global getSelection */
 var mainEl = document.getElementById('main');
 function setEditable() {
@@ -54,9 +56,9 @@ document.body.addEventListener('click',setEditable); setEditable();
 function flashOn(evt) {
   var focusPosition = getSelection().focusOffset;
   var nodeLength = getSelection().focusNode.length;
-  if (((evt.keyCode == 37 || evt.keyCode == 38)
+  if (((evt.key == 'ArrowLeft' || evt.key == 'ArrowUp')
       && focusPosition == 0) ||
-    ((evt.keyCode == 39 || evt.keyCode == 40)
+    ((evt.key == 'ArrowRight' || evt.key == 'ArrowDown')
       && (focusPosition == nodeLength || !nodeLength))) {
     unsetEditable();
     document.body.classList.add('inverted');
